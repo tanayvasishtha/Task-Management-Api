@@ -1,4 +1,4 @@
-# 🚀 Task Management API - Keploy Fellowship Session 2
+# Task Management API - Keploy Fellowship Session 2
 
 [![Node.js](https://img.shields.io/badge/Node.js-18.x-green.svg)](https://nodejs.org/)
 [![Express.js](https://img.shields.io/badge/Express.js-4.x-blue.svg)](https://expressjs.com/)
@@ -8,9 +8,9 @@
 
 A professional REST API server built with Node.js, Express, and multiple database options (MySQL, SQLite, In-Memory) for managing tasks with full CRUD operations and a beautiful modern frontend interface.
 
-## ✨ Features
+## Features
 
-### 🎯 **Backend Capabilities**
+### **Backend Capabilities**
 - **6 RESTful API endpoints** with comprehensive CRUD operations
 - **Multiple database options:** MySQL (production), SQLite (demo), In-Memory (testing)
 - **Professional error handling** with structured JSON responses
@@ -18,7 +18,7 @@ A professional REST API server built with Node.js, Express, and multiple databas
 - **Connection pooling** for optimal performance
 - **CORS enabled** for cross-origin requests
 
-### 🎨 **Modern Frontend**
+### **Modern Frontend**
 - **Beautiful dark theme** inspired by Cursor/Perplexity design
 - **Glass morphism UI** with backdrop blur effects
 - **Real-time API interaction** with loading states
@@ -26,13 +26,13 @@ A professional REST API server built with Node.js, Express, and multiple databas
 - **Animated backgrounds** with flowing gradients
 - **Form validation** and error handling
 
-### 🚀 **Deployment Ready**
+### **Deployment Ready**
 - **Docker containerization** support
 - **Multiple deployment options** (Heroku, Vercel, Railway, etc.)
 - **Environment configuration** with `.env` support
 - **Production-ready** error handling and logging
 
-## 📡 API Endpoints
+## API Endpoints
 
 ### **Core CRUD Operations**
 
@@ -49,7 +49,7 @@ A professional REST API server built with Node.js, Express, and multiple databas
 - `GET /health` - Health check endpoint
 - `GET /` - Serves frontend interface
 
-## 🗄️ Database Schema
+## Database Schema
 
 ```sql
 CREATE TABLE tasks (
@@ -62,7 +62,7 @@ CREATE TABLE tasks (
 );
 ```
 
-## 🏃‍♂️ Quick Start
+## Quick Start
 
 ### **Method 1: SQLite (Recommended for Demo)**
 ```bash
@@ -102,7 +102,7 @@ npm install
 npm run start:memory
 ```
 
-## 🌐 Accessing the Application
+## Accessing the Application
 
 Once started, your application is available at:
 
@@ -110,32 +110,32 @@ Once started, your application is available at:
 - **API Base URL:** `http://localhost:3030/api/tasks`
 - **Health Check:** `http://localhost:3030/health`
 
-## 📋 Project Structure
+## Project Structure
 
 ```
 task-management-api/
-├── 📁 routes/
+├── routes/
 │   ├── tasks.js              # MySQL routes
 │   ├── tasks-sqlite.js       # SQLite routes
 │   └── tasks-memory.js       # In-memory routes
-├── 📁 database/
+├── database/
 │   ├── connection.js         # MySQL connection
 │   ├── sqlite-connection.js  # SQLite connection
 │   └── setup.sql             # Database schema
-├── 📁 frontend/
+├── frontend/
 │   ├── index.html            # Modern UI interface
 │   ├── style.css             # Beautiful styling
 │   └── script.js             # Interactive functionality
-├── 📄 server.js              # MySQL server
-├── 📄 server-sqlite.js       # SQLite server  
-├── 📄 server-memory.js       # In-memory server
-├── 📄 package.json           # Dependencies & scripts
-├── 📄 Dockerfile             # Container configuration
-├── 📄 deploy.md              # Deployment guide
-└── 📄 README.md              # This file
+├── server.js                 # MySQL server
+├── server-sqlite.js          # SQLite server  
+├── server-memory.js          # In-memory server
+├── package.json              # Dependencies & scripts
+├── Dockerfile                # Container configuration
+├── deploy.md                 # Deployment guide
+└── README.md                 # This file
 ```
 
-## 🧪 API Testing
+## API Testing
 
 ### **Using curl**
 ```bash
@@ -178,7 +178,7 @@ curl http://localhost:3030/api/tasks/status/pending
 }
 ```
 
-## 🚀 Deployment Options
+## Deployment Options
 
 We provide **7 different deployment options** to suit your needs:
 
@@ -190,9 +190,9 @@ We provide **7 different deployment options** to suit your needs:
 6. **DigitalOcean App Platform**
 7. **AWS EC2** (Advanced)
 
-📖 **See [deploy.md](deploy.md) for detailed deployment instructions**
+**See [deploy.md](deploy.md) for detailed deployment instructions**
 
-## 🛠️ Available Scripts
+## Available Scripts
 
 ```bash
 # Development
@@ -208,7 +208,7 @@ npm run docker:run        # Run Docker container
 npm test                  # Run test suite (if implemented)
 ```
 
-## 🔧 Environment Configuration
+## Environment Configuration
 
 Create a `.env` file for MySQL configuration:
 
@@ -228,7 +228,7 @@ NODE_ENV=development
 CORS_ORIGIN=http://localhost:3000
 ```
 
-## ⚡ Tech Stack
+## Tech Stack
 
 ### **Backend**
 - **Runtime:** Node.js 18+
@@ -250,9 +250,9 @@ CORS_ORIGIN=http://localhost:3000
 - **Process Management:** PM2 ready
 - **Monitoring:** Health check endpoint
 
-## 🎯 Assignment Completion
+## Assignment Completion
 
-✅ **All Keploy Fellowship Session 2 Requirements Met:**
+**All Keploy Fellowship Session 2 Requirements Met:**
 
 - [x] **4+ API endpoints** (We have 6!)
 - [x] **Database integration** (Multiple options: MySQL, SQLite, In-Memory)
@@ -264,7 +264,7 @@ CORS_ORIGIN=http://localhost:3000
 - [x] **Bonus: Multiple deployment options** (7 different ways)
 - [x] **Bonus: Docker support** (Production-ready)
 
-## 🔍 Error Handling
+## Error Handling
 
 ### **HTTP Status Codes**
 - `200` - Success (GET, PUT)
@@ -282,7 +282,7 @@ CORS_ORIGIN=http://localhost:3000
 }
 ```
 
-## 📈 Performance Features
+## Performance Features
 
 - **Connection pooling** for database efficiency
 - **Input validation** to prevent invalid data
@@ -291,16 +291,16 @@ CORS_ORIGIN=http://localhost:3000
 - **CORS configuration** for security
 - **Health monitoring** endpoint
 
-## 🎨 UI Screenshots
+## UI Screenshots
 
 The frontend features a beautiful modern design with:
-- 🌑 **Dark theme** with blue accents
-- ✨ **Glass morphism** cards and effects
-- 🌊 **Animated backgrounds** with flowing patterns
-- 📱 **Responsive design** for all devices
-- ⚡ **Real-time updates** with smooth animations
+- **Dark theme** with blue accents
+- **Glass morphism** cards and effects
+- **Animated backgrounds** with flowing patterns
+- **Responsive design** for all devices
+- **Real-time updates** with smooth animations
 
-## 🤝 Contributing
+## Contributing
 
 1. Fork the repository
 2. Create a feature branch (`git checkout -b feature/amazing-feature`)
@@ -308,37 +308,37 @@ The frontend features a beautiful modern design with:
 4. Push to the branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
 
-## 📄 License
+## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## 👤 Author
+## Author
 
 **KIIT Student** - Keploy Fellowship Session 2
 
 ---
 
-## 🎉 Congratulations!
+## Congratulations!
 
 You've successfully created a **professional-grade Task Management API** with:
 
-- ✅ **Production-ready backend** with multiple database options
-- ✅ **Beautiful modern frontend** with glass morphism design
-- ✅ **Comprehensive documentation** and deployment guides
-- ✅ **Professional error handling** and validation
-- ✅ **Multiple deployment options** for any platform
-- ✅ **Docker support** for containerized deployments
+- **Production-ready backend** with multiple database options
+- **Beautiful modern frontend** with glass morphism design
+- **Comprehensive documentation** and deployment guides
+- **Professional error handling** and validation
+- **Multiple deployment options** for any platform
+- **Docker support** for containerized deployments
 
-**Perfect for Keploy Fellowship Session 2! 🚀**
+**Perfect for Keploy Fellowship Session 2!**
 
-### 🌟 **Ready for GitHub?**
+### **Ready for GitHub?**
 
 Your project is now **production-ready** and **portfolio-worthy**! 
 
 ```bash
 git add .
-git commit -m "✨ Complete Task Management API with modern UI"
+git commit -m "Complete Task Management API with modern UI"
 git push origin main
 ```
 
-**Star this repository if it helped you! ⭐** 
+**Star this repository if it helped you!** 
