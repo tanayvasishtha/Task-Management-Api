@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Management API - Keploy Fellowship</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>🚀 Task Management API</h1>
+            <p>Keploy Fellowship Session 2 - Interactive Frontend</p>
+        </header>
+
+        <div class="api-info">
+            <h3>📋 API Endpoints</h3>
+            <div class="endpoint-list">
+                <span class="method get">GET</span> <code>/api/tasks</code> - Get all tasks<br>
+                <span class="method get">GET</span> <code>/api/tasks/:id</code> - Get task by ID<br>
+                <span class="method get">GET</span> <code>/api/tasks/status/:status</code> - Filter by status<br>
+                <span class="method post">POST</span> <code>/api/tasks</code> - Create new task<br>
+                <span class="method put">PUT</span> <code>/api/tasks/:id</code> - Update task<br>
+                <span class="method delete">DELETE</span> <code>/api/tasks/:id</code> - Delete task
+            </div>
+        </div>
+
+        <div class="main-content">
+            <!-- Create Task Form -->
+            <section class="form-section">
+                <h2>➕ Create New Task</h2>
+                <form id="createTaskForm" class="task-form">
+                    <div class="form-group">
+                        <label for="title">Task Title *</label>
+                        <input type="text" id="title" name="title" required placeholder="Enter task title">
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Description</label>
+                        <textarea id="description" name="description" placeholder="Enter task description"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="status">Status</label>
+                        <select id="status" name="status">
+                            <option value="pending">Pending</option>
+                            <option value="in-progress">In Progress</option>
+                            <option value="completed">Completed</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-create">Create Task</button>
+                </form>
+            </section>
+
+            <!-- Get/Search Tasks -->
+            <section class="form-section">
+                <h2>🔍 Search & Filter Tasks</h2>
+                <div class="search-controls">
+                    <button class="btn btn-get" onclick="getAllTasks()">Get All Tasks</button>
+                    <div class="search-group">
+                        <input type="number" id="searchId" placeholder="Task ID">
+                        <button class="btn btn-search" onclick="getTaskById()">Get by ID</button>
+                    </div>
+                    <div class="filter-group">
+                        <select id="filterStatus">
+                            <option value="">Filter by Status</option>
+                            <option value="pending">Pending</option>
+                            <option value="in-progress">In Progress</option>
+                            <option value="completed">Completed</option>
+                        </select>
+                        <button class="btn btn-filter" onclick="filterByStatus()">Filter</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Update Task Form -->
+            <section class="form-section">
+                <h2>✏️ Update Task</h2>
+                <form id="updateTaskForm" class="task-form">
+                    <div class="form-group">
+                        <label for="updateId">Task ID *</label>
+                        <input type="number" id="updateId" name="updateId" required
+                            placeholder="Enter task ID to update">
+                    </div>
+                    <div class="form-group">
+                        <label for="updateTitle">New Title</label>
+                        <input type="text" id="updateTitle" name="updateTitle" placeholder="Enter new title (optional)">
+                    </div>
+                    <div class="form-group">
+                        <label for="updateDescription">New Description</label>
+                        <textarea id="updateDescription" name="updateDescription"
+                            placeholder="Enter new description (optional)"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="updateStatus">New Status</label>
+                        <select id="updateStatus" name="updateStatus">
+                            <option value="">Keep current status</option>
+                            <option value="pending">Pending</option>
+                            <option value="in-progress">In Progress</option>
+                            <option value="completed">Completed</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-update">Update Task</button>
+                </form>
+            </section>
+
+            <!-- Delete Task -->
+            <section class="form-section">
+                <h2>🗑️ Delete Task</h2>
+                <div class="delete-controls">
+                    <input type="number" id="deleteId" placeholder="Task ID to delete">
+                    <button class="btn btn-delete" onclick="deleteTask()">Delete Task</button>
+                </div>
+            </section>
+        </div>
+
+        <!-- Results Display -->
+        <section class="results-section">
+            <h2>📊 API Response</h2>
+            <div id="results" class="results-container">
+                <p class="placeholder">API responses will appear here...</p>
+            </div>
+        </section>
+
+        <!-- Tasks Display -->
+        <section class="tasks-section">
+            <h2>📝 Current Tasks</h2>
+            <div id="tasksList" class="tasks-container">
+                <p class="placeholder">Click "Get All Tasks" to load tasks...</p>
+            </div>
+        </section>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
