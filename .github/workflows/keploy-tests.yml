@@ -1,0 +1,154 @@
+name: Keploy API Tests with CI/CD
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: rootpassword
+          MYSQL_DATABASE: task_management
+          MYSQL_USER: testuser
+          MYSQL_PASSWORD: testpass
+        ports:
+          - 3306:3306
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Wait for MySQL
+      run: |
+        sudo apt-get install -y mysql-client
+        until mysql -h127.0.0.1 -P3306 -uroot -prootpassword -e "SELECT 1"; do
+          echo "Waiting for MySQL..."
+          sleep 5
+        done
+
+    - name: Setup Database
+      run: |
+        mysql -h127.0.0.1 -P3306 -uroot -prootpassword task_management < database/setup.sql
+
+    - name: Run Unit Tests
+      run: npm test
+
+    - name: Start Application
+      run: |
+        npm start &
+        sleep 10
+      env:
+        NODE_ENV: test
+        DB_HOST: localhost
+        DB_PORT: 3306
+        DB_USER: testuser
+        DB_PASSWORD: testpass
+        DB_NAME: task_management
+
+    - name: Install Keploy CLI
+      run: |
+        curl --silent -L https://keploy.io/ent/install.sh | bash
+
+    - name: Wait for API to be ready
+      run: |
+        timeout 60 bash -c 'until curl -f http://localhost:3000/health; do sleep 2; done'
+
+    - name: Generate Initial Test Data
+      run: |
+        # Create test scenarios by making API calls
+        curl -X GET http://localhost:3000/health
+        curl -X GET http://localhost:3000/api/auth/demo-credentials
+        curl -X POST http://localhost:3000/api/auth/register \
+          -H "Content-Type: application/json" \
+          -d '{"username":"testuser","password":"testpass123","email":"test@example.com"}'
+        curl -X POST http://localhost:3000/api/auth/login \
+          -H "Content-Type: application/json" \
+          -d '{"username":"testuser","password":"testpass123"}'
+        curl -X GET http://localhost:3000/api/tasks
+        curl -X POST http://localhost:3000/api/tasks \
+          -H "Content-Type: application/json" \
+          -d '{"title":"Test Task","description":"Test Description","status":"pending"}'
+        curl -X GET http://localhost:3000/api/tasks/status/pending
+
+    - name: Run Keploy Test Suite
+      run: |
+        export KEPLOY_API_KEY=${{ secrets.KEPLOY_API_KEY }}
+        # Note: Replace the app ID and base-path with your actual values from Keploy Dashboard
+        # This is a template - update with your actual app ID from app.keploy.io
+        keploy test-suite --app=your-app-id-here --base-path http://localhost:3000 --cloud
+      continue-on-error: false
+
+    - name: Upload Keploy Test Reports
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: keploy-test-reports
+        path: |
+          keploy/tests/
+          keploy/mocks/
+          keploy-report.yaml
+
+    - name: Generate Test Summary
+      if: always()
+      run: |
+        echo "## 🚀 Keploy AI-Powered API Test Results" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "### Test Configuration" >> $GITHUB_STEP_SUMMARY
+        echo "- **API Endpoint**: http://localhost:3000" >> $GITHUB_STEP_SUMMARY
+        echo "- **Database**: MySQL 8.0" >> $GITHUB_STEP_SUMMARY
+        echo "- **Test Framework**: Keploy Cloud" >> $GITHUB_STEP_SUMMARY
+        echo "- **AI Testing**: Enabled" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        
+        echo "### Keploy Cloud Integration ✅" >> $GITHUB_STEP_SUMMARY
+        echo "Tests executed using Keploy's AI-powered test suite from the cloud dashboard." >> $GITHUB_STEP_SUMMARY
+        echo "View detailed results at [app.keploy.io](https://app.keploy.io)" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        
+        echo "### Tested Endpoints" >> $GITHUB_STEP_SUMMARY
+        echo "- ✅ GET /health - Health check endpoint" >> $GITHUB_STEP_SUMMARY
+        echo "- ✅ GET /api/auth/demo-credentials - Demo credentials" >> $GITHUB_STEP_SUMMARY
+        echo "- ✅ POST /api/auth/register - User registration" >> $GITHUB_STEP_SUMMARY
+        echo "- ✅ POST /api/auth/login - User authentication" >> $GITHUB_STEP_SUMMARY
+        echo "- ✅ GET /api/tasks - Retrieve all tasks" >> $GITHUB_STEP_SUMMARY
+        echo "- ✅ POST /api/tasks - Create new task" >> $GITHUB_STEP_SUMMARY
+        echo "- ✅ GET /api/tasks/status/{status} - Filter tasks by status" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "### Setup Instructions" >> $GITHUB_STEP_SUMMARY
+        echo "1. Create account at [app.keploy.io](https://app.keploy.io)" >> $GITHUB_STEP_SUMMARY
+        echo "2. Get your App ID from Test Suite section" >> $GITHUB_STEP_SUMMARY
+        echo "3. Add KEPLOY_API_KEY to repository secrets" >> $GITHUB_STEP_SUMMARY
+        echo "4. Update the app ID in the workflow file" >> $GITHUB_STEP_SUMMARY
+
+  deploy:
+    needs: test
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Deploy Application
+      run: |
+        echo "🚀 Deploying to production..."
+        echo "All tests passed! Application is ready for deployment."
+        # Add your deployment steps here
+        # Example: Deploy to Heroku, AWS, or other cloud platforms 

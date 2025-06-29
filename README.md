@@ -32,6 +32,13 @@ A professional REST API server built with Node.js, Express, and multiple databas
 - **Environment configuration** with `.env` support
 - **Production-ready** error handling and logging
 
+### **API Testing & CI/CD (Day 4 Implementation)**
+- **OpenAPI 3.0 specification** for comprehensive API documentation
+- **Keploy AI-powered testing** integration
+- **GitHub Actions CI/CD pipeline** with automated testing
+- **Chrome Extension testing** support for web API analysis
+- **Automated test report generation** and artifact uploads
+
 ## API Endpoints
 
 ### **Core CRUD Operations**
@@ -198,6 +205,18 @@ We provide **7 different deployment options** to suit your needs:
 # Development
 npm start                 # Start MySQL server (port 3000)
 npm run start:sqlite      # Start SQLite server (port 3030)
+npm run start:memory      # Start in-memory server
+npm run start:enhanced    # Start enhanced server
+
+# Testing
+npm test                  # Run Jest unit tests
+npm run test:coverage     # Run tests with coverage
+npm run test:integration  # Run integration tests
+
+# API Testing with Keploy (Day 4)
+npm run keploy:setup      # Install Keploy CLI
+npm run keploy:test-suite # Run AI-powered test suite (cloud)
+npm run test:api          # Execute API test script
 npm run start:memory      # Start in-memory server (port 3001)
 
 # Docker
@@ -290,6 +309,62 @@ CORS_ORIGIN=http://localhost:3000
 - **Optimized queries** with proper indexing
 - **CORS configuration** for security
 - **Health monitoring** endpoint
+
+## 🚀 Day 4: API Testing with AI & CI/CD Integration
+
+This project now includes comprehensive API testing implementation using Keploy and CI/CD integration:
+
+### **Files Added for Day 4:**
+- `openapi.yaml` - Complete OpenAPI 3.0 specification
+- `keploy.yml` - Keploy configuration file
+- `.github/workflows/keploy-tests.yml` - GitHub Actions CI/CD pipeline
+- `test-api.sh` - API testing script for Keploy
+- `API-TESTING-GUIDE.md` - Comprehensive testing guide
+
+### **Keploy Integration Features:**
+- **AI-powered test generation** from API interactions
+- **Automated test recording** and replay functionality  
+- **CI/CD pipeline integration** with GitHub Actions
+- **Comprehensive API coverage** including authentication and CRUD operations
+- **Test report generation** with artifacts upload
+
+### **Quick Start with Keploy Cloud:**
+
+```bash
+# 1. Create account at app.keploy.io and get your App ID
+
+# 2. Install Keploy CLI
+npm run keploy:setup
+
+# 3. Set your API key
+export KEPLOY_API_KEY=your-api-key-here
+
+# 4. Start your API
+npm start
+
+# 5. Run AI-powered test suite
+npm run keploy:test-suite
+```
+
+**📖 Complete Setup Guide**: [KEPLOY-CLOUD-SETUP.md](KEPLOY-CLOUD-SETUP.md)
+
+### **CI/CD Pipeline:**
+The GitHub Actions pipeline automatically:
+1. ✅ Sets up Node.js and MySQL environment
+2. ✅ Runs unit tests
+3. ✅ Installs and configures Keploy
+4. ✅ Records API test cases
+5. ✅ Executes Keploy tests
+6. ✅ Generates test reports
+7. ✅ Uploads test artifacts
+
+### **Chrome Extension Testing:**
+Instructions provided for testing web APIs using Keploy Chrome Extension on:
+- JSONPlaceholder demo site
+- GitHub API interactions  
+- Social media platforms
+
+**For detailed instructions, see:** [API-TESTING-GUIDE.md](API-TESTING-GUIDE.md)
 
 ## UI Screenshots
 

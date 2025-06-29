@@ -17,7 +17,10 @@
         "test": "jest --verbose --detectOpenHandles",
         "test:watch": "jest --watch --verbose",
         "test:coverage": "jest --coverage --verbose",
-        "test:integration": "jest --testPathPattern=integration --verbose"
+        "test:integration": "jest --testPathPattern=integration --verbose",
+        "keploy:setup": "curl --silent -L https://keploy.io/ent/install.sh | bash",
+        "keploy:test-suite": "keploy test-suite --app=your-app-id-here --base-path http://localhost:3000 --cloud",
+        "test:api": "bash test-api.sh"
     },
     "keywords": [
         "api",

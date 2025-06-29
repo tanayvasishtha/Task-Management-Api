@@ -1,0 +1,36 @@
+version: api/v1beta1
+kind: config
+metadata:
+  name: keploy-config
+  namespace: keploy
+spec:
+  app:
+    name: "task-management-api"
+    port: 3000
+  server:
+    url: "http://localhost:3000"
+  test:
+    path: "keploy/tests"
+    globalNoise:
+      global:
+        body: {
+          "timestamp": [],
+          "created_at": [],
+          "updated_at": []
+        }
+        header: {
+          "Date": [],
+          "X-Powered-By": []
+        }
+    selectedTests: {}
+  record:
+    path: "keploy/mocks"
+  configPath: ""
+  bypassRules:
+    - path: "/health"
+      method: "GET"
+      host: ""
+      header: {}
+      body: ""
+  keployContainer: "keploy"
+  buildDelay: 30s 
